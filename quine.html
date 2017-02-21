@@ -1,21 +1,36 @@
 <!DOCTYPE html>
-<title>pdv</title>
-<code id='x'></code>
+<title>quine</title>
+<pre><code id='x'></code></pre>
 <script>
 
-var header = [
-"<!DOCTYPE html>",
-"<title>pdv</title>",
-"<code id='x'></code>",
-"<script>",
-"",
-"var header = [",
-"",
-"document.getElementById('x').innerText = header.join('\\n');",
-"",
-"<\/script>"
-];
+var source = [
+  "<!DOCTYPE html>",
+  "<title>quine</title>",
+  "<code id='x'></code>",
+  "<script>",
+  "",
+  "var source = [",
+  "]",
+  "",
+  "const quote = (str) => '\"' + str + '\"'",
+  "const qoted = [",
+  "  source.splice(0, 6).join('\\n'),",
+  "  source.map(quote).join(',\\n') + ',\\n]',",
+  "  source.slice(7, source.length).join('\\n')",
+  "]",
+  "",
+  "document.getElementById('x').innerText = quoted.join('\\n');",
+  "",
+  "<\/script>",
+]
 
-document.getElementById('x').innerText = header.join('\n');
+const quote = (str) => '  \"' + str.replace("/", "\\/").replace("\\n", "\\\\n") + '\"'
+const quoted = [
+  source.slice(0, 6).join('\n'),
+  source.map(quote).join(',\n') + ',\n]',
+  source.slice(7, source.length).join('\n')
+]
+
+document.getElementById('x').innerText = quoted.join('\n')
 
 </script>
